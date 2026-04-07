@@ -1,5 +1,5 @@
 import express from "express";
-import authRoute from "./routes/authRoute.js";
+import authRoutes from "./routes/authRoutes.js";
 import { config } from "dotenv";
 import { connectDB, disconnectDB } from "./config/db.js";
 
@@ -9,8 +9,10 @@ const port = 5001;
 config();
 connectDB();
 
+// Middlewares
+app.use(express.json());
 // API Routes
-app.use("/auth", authRoute);
+app.use("/auth", authRoutes);
 
 const server = app.listen(port, () => {
   console.log(`Exemple app listening on port ${port}`);

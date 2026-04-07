@@ -22,5 +22,35 @@ model User {
   email String @unique
   password String
   created_at DateTime @default(now())
+
+// Relations
+goals Goal[] @relation("GoalCreator")
+ 
+}
+
+model Goal{
+  id String @id @default(uuid())
+  id_user String 
+  name String
+  icon_url String?
+  start_date DateTime
+  end_date DateTime
+  created_at DateTime @default(now())
+
+   // Relations
+  creator User @relation("GoalCreator", fields: [id_user], references: [id], onDelete: Cascade)
+  dailyGoals DailyGoal[]
+}
+
+model DailyGoal{
+  id String @id @default(uuid())
+  id_goal String
+  id_date String
+  completed Boolean
+  mood String?
+  notes String?
+
+  // Relations
+  goal Goal @relation(fields: [id_goal], references: [id], onDelete: Cascade)
 }
  
