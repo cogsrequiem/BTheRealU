@@ -9,8 +9,10 @@ const port = 5001;
 config();
 connectDB();
 
-// Middlewares
+// Body parsing middlewares
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 // API Routes
 app.use("/auth", authRoutes);
 
