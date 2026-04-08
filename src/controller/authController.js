@@ -22,30 +22,29 @@ const registerUser = async (req, res) => {
       return res.status(400).json({ error: "Email or user name already used" });
     }
 
-    // Generate JSONWebToken
-    const token = generateToken(existingUsername.id, res);
-
     //Create User
     const user = await prisma.user.create({
       data: {
-        user: {
-          name,
-          lastname,
-          username,
-          email,
-          password: hashedPassword,
-        },
-        token,
+        name,
+        lastname,
+        username,
+        email,
+        password: hashedPassword,
       },
     });
+
+    // Generate JSONWebToken
+    const token = generateToken(user.id, res);
+
     res.status(201).json({
       status: "succes",
       data: {
         user: {
           id: user.id,
-          username: username,
-          email: email,
+          username: user.username,
+          email: user.email,
         },
+        token,
       },
     });
   } catch (error) {
