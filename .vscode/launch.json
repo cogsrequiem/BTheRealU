@@ -1,0 +1,22 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+           "runtimeArgs":[
+            
+            "src/server.js"
+           ],
+           "runtimeExecutable": "/home/cogsrequiem/.nvm/versions/node/v24.14.1/bin/node",
+            "name": "Launch Program",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/src/middleware/authMiddleware.js"
+        }
+    ]
+}

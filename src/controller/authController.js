@@ -56,26 +56,26 @@ const registerUser = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
   // Verify if the user username or email exist in the table
 
-  const existingUsername = await prisma.user.findUnique({
-    where: { username: username },
+  const existingEmail = await prisma.user.findUnique({
+    where: { email: email },
   });
 
   // const existingEmail = await prisma.user.findUnique({
   //   where: { email: email },
   // });
 
-  if (!existingUsername) {
+  if (!existingEmail) {
     return res.status(401).json({ error: "Invalid credentials" });
   }
 
   // Verify password
   const isPasswordValid = await bcrypt.compare(
     password,
-    existingUsername.password,
+    existingEmail.password,
   );
 
   if (!isPasswordValid) {
@@ -83,14 +83,14 @@ const login = async (req, res) => {
   }
 
   // Generate JSONWebToken
-  const token = generateToken(existingUsername.id, res);
+  const token = generateToken(existingEmail.id, res);
 
   res.status(201).json({
     status: "success",
     data: {
       user: {
-        id: existingUsername.id,
-        username: username,
+        id: existingEmail.id,
+        email: email,
       },
       token,
     },

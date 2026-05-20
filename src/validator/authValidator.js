@@ -2,8 +2,8 @@ import z from "zod";
 
 const registerSchema = z.object({
   name: z.string().trim().min(2, "Name must be at least 2 characters"),
-  lastname: z.string().trim().min(2, "Name must be at least 2 characters"),
-  username: z.string().trim().min(2, "Name must be at least 2 characters"),
+  lastname: z.string().trim().min(1, "Lastname must be at least 1 characters"),
+  username: z.string().trim().min(2, "Username must be at least 2 characters"),
   email: z
     .string()
     .trim()
@@ -17,7 +17,7 @@ const registerSchema = z.object({
 });
 
 const loginSchema = z.object({
-  username: z.string().trim().min(2, "Name must be at least 2 characters"),
+  email: z.string().trim().min(2, "Name must be at least 2 characters"),
   password: z.string().min(1, "Password is required"),
 });
 

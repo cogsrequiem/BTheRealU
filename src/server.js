@@ -1,12 +1,19 @@
 import express from "express";
 import authRoutes from "./routes/authRoutes.js";
+import goalRoutes from "./routes/goalRoutes.js"
+import { authMiddleware } from "./middleware/authMiddleware.js";
+import dailyGoalRoutes from "./routes/dailyGoalRoutes.js";
+
 import { config } from "dotenv";
+config();
 import { connectDB, disconnectDB } from "./config/db.js";
+
+
 
 const app = express();
 const port = 5001;
 
-config();
+
 connectDB();
 
 // Body parsing middlewares
@@ -15,6 +22,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // API Routes
 app.use("/auth", authRoutes);
+app.use("/goals", goalRoutes);
+
+
 
 const server = app.listen(port, () => {
   console.log(`Exemple app listening on port ${port}`);
